@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using TiendaPruebaAPI;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -19,6 +23,10 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader();
         });
 });
+
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer("name=DefaultConnection"));
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
