@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TiendaPruebaAPI;
+using TiendaPruebaAPI.Interfaces;
+using TiendaPruebaAPI.Repositorio;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,8 +12,6 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddCors(options =>
 {
@@ -25,7 +25,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer("name=DefaultConnection"));
-
+builder.Services.AddTransient<IProductosRepositoio, ProductosRepositoio>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
